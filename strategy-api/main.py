@@ -10,7 +10,7 @@ class MoveRequest(BaseModel):
     sfen: str  # 将棋盤の状態を表すSFEN文字列
 
 
-@app.post("/move")
+@app.post("/next-move")
 async def get_ai_move(request: MoveRequest):
     board = shogi.Board()
     board.set_sfen(request.sfen)  # 受け取ったSFENをセット
