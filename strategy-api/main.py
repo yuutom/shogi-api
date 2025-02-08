@@ -7,17 +7,17 @@ app = FastAPI()
 
 
 class MoveRequest(BaseModel):
-    sfen: str  # 将棋盤の状態を表すSFEN文字列
+    sfen: str
 
 
 @app.post("/next-move")
 async def get_ai_move(request: MoveRequest):
     board = shogi.Board()
-    board.set_sfen(request.sfen)  # 受け取ったSFENをセット
+    board.set_sfen(request.sfen)
 
-    legal_moves = list(board.legal_moves)  # 合法手リスト
+    legal_moves = list(board.legal_moves)
     if not legal_moves:
-        return {"move": None}  # 合法手がない場合は終了
+        return {"move": None}
 
-    ai_move = random.choice(legal_moves)  # ランダムな手を選択
+    ai_move = random.choice(legal_moves)
     return {"move": str(ai_move)}
